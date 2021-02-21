@@ -53,7 +53,7 @@ class CustomImageViewWithCacheTests: XCTestCase {
     
     func testDownloadImageWithGoodData() throws {
         let mockURLSession = MockURLSession()
-        let data =  ImageHelper.imageNotFound.image()?.pngData() ?? Data()
+        let data = UIImagePNGRepresentation(ImageHelper.imageNotFound.image() ?? UIImage())
         let expect = expectation(description: "wait to download image")
         let activityIndicatorMock = UIActivityIndicatorViewMock()
         customImageViewWithCache.activityIndicator = activityIndicatorMock

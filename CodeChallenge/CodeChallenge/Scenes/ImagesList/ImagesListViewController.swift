@@ -28,7 +28,7 @@ class ImagesListViewController: UIViewController, ImagesListDisplayLogic {
     // MARK: PROPERTIES
     var refreshControl = UIRefreshControl()
     var dataSource = [ImagesList.DataSource.ViewModel.Succes.DisplayObject]()
-    let activityIndicator = UIActivityIndicatorView(style: .gray)
+    let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
     /**
      The API doesn't have a way to know the total number of elements, this means the app needs to make multiples requests to reach the end of the list, this variable(totalNumberOfElements) will control when the user can request or not more elements
      */

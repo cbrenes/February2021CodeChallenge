@@ -1,5 +1,7 @@
 **Coding Challenge**
 
+![](demo.gif)
+
 This project has the following requirements:
 
  1. This code test must be written in Swift 4 or later.
@@ -21,3 +23,4 @@ This project has the following requirements:
  7. The application works on iPhone and Ipad, both orientations(landscape and portrait)
  8. The application has error handle
  9. The application uses pagination to get the data from the API
+ 10. The application uses cache to storage each image, this means If a new request is executed and the image was stored there, the app will not execute a new download 
