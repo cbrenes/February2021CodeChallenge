@@ -1,0 +1,17 @@
+/* 
+  Localizable.strings
+  CodeChallenge
+
+  Created by Cesar Brenes on 21/2/21.
+  
+*/
+
+"You don't have any photos yet" = "You don't have any photos yet";
+"Photos" = "Photos";
+"Photo Detail" = "Photo Detail";
+"Error Found" = "Error Found";
+"No internet connection, Make sure that Wi-Fi or mobile data is turned on, then try again." = "No internet connection, Make sure that Wi-Fi or mobile data is turned on, then try again.";
+"Retry" = "Retry";
+"Cancel" = "Cancel";
+"Server Error" = "Server Error";
+"A problem ocurred, please try a pull down to refresh" = "A problem ocurred, please try a pull down to refresh";
