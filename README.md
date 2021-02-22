@@ -40,7 +40,7 @@ This project has the following requirements:
 
 5. In the case a download task started and for some reason the resource is not necessary the code has the ability to cancel it, all of this is handled in the class: CustomImageViewWithCache.swift
 
-6. When the user executes the pull down to refresh and for some reason it fails, the application will clean the previous content and it will show a message informing to the user what is happening
+6. When the user executes the pull down to refresh and for some reason it fails, the application will show a message informing to the user what is happening
 
 7. The application works on iPhone and Ipad, both orientations(landscape and portrait)
 
