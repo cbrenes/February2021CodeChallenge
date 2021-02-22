@@ -53,4 +53,3 @@ This project has the following requirements:
 ****Improvements to do****
 
  1. Replace the table view per a collection view, this will allow to show the images in a better way in the different devices
- 2. Change the logic when the pull down to refresh fails, this could show the message without need to remove the data, in this way the user has access to the previous content

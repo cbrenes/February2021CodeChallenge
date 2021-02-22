@@ -155,11 +155,7 @@ class ImagesListViewController: UIViewController, ImagesListDisplayLogic {
     
     func handleCancelAction(viewModel: ImagesList.DataSource.ViewModel.ErrorFound) {
         self.actionString = viewModel.leftButtonTitle
-        if !self.refreshControl.isHidden {
-            self.dataSource.removeAll()
-            self.totalNumberOfElements = 0
-            self.tableView.setStateMessage(message: viewModel.tableViewErrorMessage)
-        } else if self.dataSource.isEmpty {
+        if !self.refreshControl.isHidden || self.dataSource.isEmpty {
             self.tableView.setStateMessage(message: viewModel.tableViewErrorMessage)
         } else {
             self.tableView.restore()

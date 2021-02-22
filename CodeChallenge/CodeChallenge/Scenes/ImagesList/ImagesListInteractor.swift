@@ -37,9 +37,6 @@ class ImagesListInteractor: ImagesListBusinessLogic, ImagesListDataStore {
             return
         }
         isFetchInProgress = true
-        if request.isRefreshAction {
-            items.removeAll()
-        }
         handleRequestDataSource(request: request)
     }
     
@@ -53,10 +50,14 @@ class ImagesListInteractor: ImagesListBusinessLogic, ImagesListDataStore {
 
 extension ImagesListInteractor {
     func handleRequestDataSource(request: ImagesList.DataSource.Request) {
-        worker.getData(start: items.count, limit: limitOfElementPerRequest) {[weak self] (itemsFromAPI, error) in
+        let start = request.isRefreshAction ? 0 : items.count
+        worker.getData(start: start, limit: limitOfElementPerRequest) {[weak self] (itemsFromAPI, error) in
             self?.isFetchInProgress = false
             guard let self = self else {
                 return
+            }
+            if error == nil && request.isRefreshAction {
+                self.items.removeAll()
             }
             let totalNumberOfElements = self.getNumberOfElementsToDisplay(itemsFromApi: itemsFromAPI ?? [ImageItem](), previousItems: self.items, errorFound: error)
             let numberOfPreviousItems = self.items.count
