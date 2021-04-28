@@ -133,22 +133,6 @@ class ImagesListPresenterTests: XCTestCase {
         XCTAssertEqual(LocalizationHelper.aProblemOcurredPleaseTryAPullDownToRefresh.localizedString(), viewController.displayDataSourceErrorFoundViewModel?.tableViewErrorMessage)
     }
     
-    func testPresentDataSourceShouldAskTheViewControllerToDisplayServerErrorWithInvalidStatusCodeErrorType() throws {
-        let viewController = ImagesListDisplayLogicSpy()
-        presenter.viewController = viewController
-        
-        presenter?.presentDataSource(response: ImagesList.DataSource.Response(numberOfPreviousItems: 0, items: nil, totalNumberOfElements: 0, errorFound: .invalidStatusCode(0)))
-        
-        XCTAssert(viewController.displayDataSourceErrorFoundWasCalled)
-        XCTAssertFalse(viewController.displayDataSourceEmptyStateWasCalled)
-        XCTAssertFalse(viewController.displayDataSourceSuccessWasCalled)
-        XCTAssertEqual(LocalizationHelper.errorFound.localizedString(), viewController.displayDataSourceErrorFoundViewModel?.title)
-        XCTAssertEqual(LocalizationHelper.serverError.localizedString(), viewController.displayDataSourceErrorFoundViewModel?.message)
-        XCTAssertEqual(LocalizationHelper.cancel.localizedString(), viewController.displayDataSourceErrorFoundViewModel?.leftButtonTitle)
-        XCTAssertEqual(LocalizationHelper.retry.localizedString(), viewController.displayDataSourceErrorFoundViewModel?.rightButtonTitle)
-        XCTAssertEqual(LocalizationHelper.aProblemOcurredPleaseTryAPullDownToRefresh.localizedString(), viewController.displayDataSourceErrorFoundViewModel?.tableViewErrorMessage)
-    }
-    
     func testPresentDataSourceShouldAskTheViewControllerToDisplayServerErrorWithInvalidURLErrorType() throws {
         let viewController = ImagesListDisplayLogicSpy()
         presenter.viewController = viewController
@@ -180,7 +164,7 @@ class ImagesListPresenterTests: XCTestCase {
         XCTAssertEqual(LocalizationHelper.retry.localizedString(), viewController.displayDataSourceErrorFoundViewModel?.rightButtonTitle)
         XCTAssertEqual(LocalizationHelper.aProblemOcurredPleaseTryAPullDownToRefresh.localizedString(), viewController.displayDataSourceErrorFoundViewModel?.tableViewErrorMessage)
     }
-
+    
     func testCreateIndexPathListToInsertWithPreviousItems() throws {
         let items = [ImageItem(), ImageItem(), ImageItem(), ImageItem(), ImageItem()]
         let numberOfPreviousItems = 10

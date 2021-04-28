@@ -8,15 +8,15 @@
 import Foundation
 
 class MockAPI: APIStoreProtocol {
-    func getData(start: Int, limit: Int, completionHandler: @escaping (_ items: [ImageItem]?, _ error: APIError?) -> Void) {
+    func getData(start: Int, limit: Int, completionHandler: @escaping apiAnswer) {
         if let path = Bundle.main.path(forResource: "mock", ofType: "json") {
             do {
                 let data = try Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
                 let decodedAnswer = try JSONDecoder().decode([Throwable<ImageItem>].self, from: data)
                 let imageItems = decodedAnswer.compactMap { $0.value }
-                completionHandler(splitItemsList(startIndex: start, numberOfElements: limit, items: imageItems), nil)
+                completionHandler(.success(splitItemsList(startIndex: start, numberOfElements: limit, items: imageItems)))
             } catch(let error) {
-                completionHandler(nil, .jsonParsingError(error))
+                completionHandler(.failure(.jsonParsingError(error)))
             }
         }
     }
@@ -30,6 +30,5 @@ class MockAPI: APIStoreProtocol {
         }
         return chunkList
     }
-    
 }
 

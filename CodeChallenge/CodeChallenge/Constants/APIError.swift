@@ -11,9 +11,9 @@ enum APIError: Error, Equatable {
     
     case networkError(Error)
     case jsonParsingError(Error)
-    case invalidStatusCode(Int)
     case invalidURL
     case paginationError
+    case noData
     
     static func == (lhs: APIError, rhs: APIError) -> Bool {
         switch (lhs, rhs) {
@@ -21,14 +21,16 @@ enum APIError: Error, Equatable {
             return true
         case (.jsonParsingError, .jsonParsingError):
         return true
-        case (.invalidStatusCode, .invalidStatusCode):
-        return true
         case (.invalidURL, .invalidURL):
             return true
         case (.paginationError, .paginationError):
+            return true
+        case (.noData, .noData):
             return true
         default:
             return false
         }
     }
 }
+
+

@@ -50,8 +50,8 @@ class UIActivityIndicatorViewMock: UIActivityIndicatorView {
 class MockAPIWithErrors: MockAPI {
     
     var error: APIError?
-    override func getData(start: Int, limit: Int, completionHandler: @escaping ([ImageItem]?, APIError?) -> Void) {
-        completionHandler(nil, error)
+    override func getData(start: Int, limit: Int, completionHandler: @escaping (Result<[ImageItem], APIError>) -> Void) {
+        completionHandler(.failure(error!)) // I am using a force unwrapp here because I know the value isn't nil. This code should be used only in the testing target
     }
 }
 

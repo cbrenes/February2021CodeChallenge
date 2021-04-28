@@ -12,20 +12,22 @@
 
 import UIKit
 
+typealias apiAnswer = (Result<[ImageItem], APIError>) -> Void
+
 protocol APIStoreProtocol {
-    func getData(start: Int, limit: Int, completionHandler: @escaping (_ items: [ImageItem]?, _ error: APIError?) -> Void)
+    func getData(start: Int, limit: Int, completionHandler: @escaping apiAnswer)
 }
 
-class APIWorker {
+struct APIWorker {
     var store: APIStoreProtocol
     
     init(store: APIStoreProtocol) {
         self.store = store
     }
     
-    func getData(start: Int, limit: Int, completionHandler: @escaping (_ items: [ImageItem]?, _ error: APIError?) -> Void) {
+    func getData(start: Int, limit: Int, completionHandler: @escaping apiAnswer) {
         if start < 0 || limit < 1 {
-            completionHandler(nil, .paginationError)
+            completionHandler(.failure(.paginationError))
             return
         }
         store.getData(start: start, limit: limit, completionHandler: completionHandler)

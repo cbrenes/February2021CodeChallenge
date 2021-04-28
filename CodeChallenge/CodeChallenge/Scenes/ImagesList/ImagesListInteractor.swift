@@ -30,7 +30,7 @@ class ImagesListInteractor: ImagesListBusinessLogic, ImagesListDataStore {
     
     let limitOfElementPerRequest = 20
     var items = [ImageItem]()
-    var isFetchInProgress = false // This variable avoids consecutive call the request data to the API
+    var isFetchInProgress = false // This variable avoids consecutive calls to the request data to the API
     
     func requestDataSource(request: ImagesList.DataSource.Request) {
         if isFetchInProgress {
@@ -51,27 +51,32 @@ class ImagesListInteractor: ImagesListBusinessLogic, ImagesListDataStore {
 extension ImagesListInteractor {
     func handleRequestDataSource(request: ImagesList.DataSource.Request) {
         let start = request.isRefreshAction ? 0 : items.count
-        worker.getData(start: start, limit: limitOfElementPerRequest) {[weak self] (itemsFromAPI, error) in
-            self?.isFetchInProgress = false
-            guard let self = self else {
-                return
-            }
-            if error == nil && request.isRefreshAction {
-                self.items.removeAll()
-            }
-            let totalNumberOfElements = self.getNumberOfElementsToDisplay(itemsFromApi: itemsFromAPI ?? [ImageItem](), previousItems: self.items, errorFound: error)
-            let numberOfPreviousItems = self.items.count
-            if let error = error {
+        worker.getData(start: start, limit: limitOfElementPerRequest, completionHandler: { [weak self] in
+            guard let self = self else { return }
+            self.isFetchInProgress = false
+            switch $0 {
+            case let .failure(error):
+                if error == .noData {
+                    self.handleApiSuccessAnswer(isRefreshAction: request.isRefreshAction, itemsFromAPI: [ImageItem]())
+                    return
+                }
+                let totalNumberOfElements = self.getNumberOfElementsToDisplay(itemsFromApi: [ImageItem](), previousItems: self.items, errorFound: error)
                 self.presenter?.presentDataSource(response: ImagesList.DataSource.Response(numberOfPreviousItems: self.items.count, items: nil, totalNumberOfElements: totalNumberOfElements, errorFound: error))
-                return
+            case let .success(itemsFromAPI):
+                self.handleApiSuccessAnswer(isRefreshAction: request.isRefreshAction, itemsFromAPI: itemsFromAPI)
             }
-            if let itemsFromAPI = itemsFromAPI {
-                self.items += itemsFromAPI
-            }
-            self.presenter?.presentDataSource(response: ImagesList.DataSource.Response(numberOfPreviousItems: numberOfPreviousItems, items: itemsFromAPI, totalNumberOfElements: totalNumberOfElements, errorFound: error))
-        }
+        })
     }
     
+    func handleApiSuccessAnswer(isRefreshAction: Bool, itemsFromAPI: [ImageItem]) {
+        if isRefreshAction {
+            self.items.removeAll()
+        }
+        let totalNumberOfElements = self.getNumberOfElementsToDisplay(itemsFromApi: itemsFromAPI, previousItems: self.items, errorFound: nil)
+        let numberOfPreviousItems = self.items.count
+        self.items += itemsFromAPI
+        self.presenter?.presentDataSource(response: ImagesList.DataSource.Response(numberOfPreviousItems: numberOfPreviousItems, items: itemsFromAPI, totalNumberOfElements: totalNumberOfElements, errorFound: nil))
+    }
     
     func getNumberOfElementsToDisplay(itemsFromApi: [ImageItem], previousItems: [ImageItem], errorFound: APIError?) -> Int {
         if previousItems.isEmpty && errorFound != nil {

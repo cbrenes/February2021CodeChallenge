@@ -25,6 +25,7 @@
 		786C565A25E2C74A00840961 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 786C565C25E2C74A00840961 /* Localizable.strings */; };
 		786C566125E2E7F700840961 /* LocalizationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 786C566025E2E7F700840961 /* LocalizationHelper.swift */; };
 		786C566625E2F5F800840961 /* UIAlertActionHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 786C566525E2F5F800840961 /* UIAlertActionHelper.swift */; };
+		786EBEFE2639EAD600360DB2 /* APIHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 786EBEFD2639EAD600360DB2 /* APIHelper.swift */; };
 		78726C4725DF351B00709F36 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78726C4625DF351B00709F36 /* AppDelegate.swift */; };
 		78726C4925DF351B00709F36 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78726C4825DF351B00709F36 /* SceneDelegate.swift */; };
 		78726C4E25DF351B00709F36 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 78726C4C25DF351B00709F36 /* Main.storyboard */; };
@@ -82,6 +83,7 @@
 		786C565B25E2C74A00840961 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		786C566025E2E7F700840961 /* LocalizationHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizationHelper.swift; sourceTree = "<group>"; };
 		786C566525E2F5F800840961 /* UIAlertActionHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIAlertActionHelper.swift; sourceTree = "<group>"; };
+		786EBEFD2639EAD600360DB2 /* APIHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIHelper.swift; sourceTree = "<group>"; };
 		78726C4325DF351B00709F36 /* CodeChallenge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CodeChallenge.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		78726C4625DF351B00709F36 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		78726C4825DF351B00709F36 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -350,6 +352,7 @@
 				782E550725E18DB000FF1793 /* DispatchQueueHelper.swift */,
 				786C566025E2E7F700840961 /* LocalizationHelper.swift */,
 				78DD3C0425E3179C00F412DD /* UIImageHelper.swift */,
+				786EBEFD2639EAD600360DB2 /* APIHelper.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -463,6 +466,7 @@
 				786C566125E2E7F700840961 /* LocalizationHelper.swift in Sources */,
 				78D747E025DFED58003D721B /* ImageDetailRouter.swift in Sources */,
 				786C566625E2F5F800840961 /* UIAlertActionHelper.swift in Sources */,
+				786EBEFE2639EAD600360DB2 /* APIHelper.swift in Sources */,
 				786C564E25E2C4D500840961 /* UITableView+EmptyStates.swift in Sources */,
 				78D747F225DFEE8D003D721B /* APIError.swift in Sources */,
 				78D747E325DFED58003D721B /* ImageDetailInteractor.swift in Sources */,

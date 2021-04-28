@@ -11,25 +11,30 @@ import XCTest
 class APIWorkerTests: XCTestCase {
     
     var worker: APIWorker!
-
+    
     override func setUpWithError() throws {
         worker = APIWorker(store: MockAPI())
     }
-
+    
     override func tearDownWithError() throws {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
-
+    
     func testGetDataWithNegativeStartIndex() throws {
         let expect = expectation(description: "wait getData answer")
         var items: [ImageItem]?
         var errorFound: APIError?
         
-        worker.getData(start: -10, limit: 10) { (itemsAnwer, error) in
-            items = itemsAnwer
-            errorFound = error
-            expect.fulfill()
-        }
+        worker.getData(start: -10, limit: 10, completionHandler: {
+            switch $0 {
+            case let .failure(error):
+                errorFound = error
+                expect.fulfill()
+            case let .success(itemsFromAPI):
+                items = itemsFromAPI
+                expect.fulfill()
+            }
+        })
         waitForExpectations(timeout: 1, handler: nil)
         
         XCTAssertNil(items)
@@ -41,11 +46,16 @@ class APIWorkerTests: XCTestCase {
         var items: [ImageItem]?
         var errorFound: APIError?
         
-        worker.getData(start: 10, limit: -10) { (itemsAnwer, error) in
-            items = itemsAnwer
-            errorFound = error
-            expect.fulfill()
-        }
+        worker.getData(start: 10, limit: -10, completionHandler: {
+            switch $0 {
+            case let .failure(error):
+                errorFound = error
+                expect.fulfill()
+            case let .success(itemsFromAPI):
+                items = itemsFromAPI
+                expect.fulfill()
+            }
+        })
         waitForExpectations(timeout: 1, handler: nil)
         
         XCTAssertNil(items)
@@ -57,11 +67,16 @@ class APIWorkerTests: XCTestCase {
         var items: [ImageItem]?
         var errorFound: APIError?
         
-        worker.getData(start: -10, limit: -10) { (itemsAnwer, error) in
-            items = itemsAnwer
-            errorFound = error
-            expect.fulfill()
-        }
+        worker.getData(start: -10, limit: -10, completionHandler: {
+            switch $0 {
+            case let .failure(error):
+                errorFound = error
+                expect.fulfill()
+            case let .success(itemsFromAPI):
+                items = itemsFromAPI
+                expect.fulfill()
+            }
+        })
         waitForExpectations(timeout: 1, handler: nil)
         
         XCTAssertNil(items)
@@ -73,11 +88,16 @@ class APIWorkerTests: XCTestCase {
         var items: [ImageItem]?
         var errorFound: APIError?
         
-        worker.getData(start: 10, limit: 0) { (itemsAnwer, error) in
-            items = itemsAnwer
-            errorFound = error
-            expect.fulfill()
-        }
+        worker.getData(start: 10, limit: 0, completionHandler: {
+            switch $0 {
+            case let .failure(error):
+                errorFound = error
+                expect.fulfill()
+            case let .success(itemsFromAPI):
+                items = itemsFromAPI
+                expect.fulfill()
+            }
+        })
         waitForExpectations(timeout: 1, handler: nil)
         
         XCTAssertNil(items)
